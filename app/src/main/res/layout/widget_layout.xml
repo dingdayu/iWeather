@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="30dip"
+    android:paddingBottom="30dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:id="@+id/weather_rootLayout">
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="88dip"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:id="@+id/widget_icon"
+            android:src="@drawable/weathericon_condition_01" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:textColor="@color/white"
+                    android:id="@+id/widget_data01"
+                    android:textSize="16dip"
+                    android:layout_gravity="right|center_vertical"
+                    android:text="2011-12-7 星期三"/>"
+                <ImageView
+                        android:id="@+id/refresh"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:background="@drawable/title_bar_image_pressed_effect"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="0dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/title_bar_refresh" />
+
+                <TextView
+                    android:id="@+id/widget_data02"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="15dip"
+                    android:textAlignment="viewEnd" />
+
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="14:15"
+                    android:id="@+id/widget_time"
+                    android:textSize="40dip"
+                    android:shadowColor="@color/dark"
+                    android:shadowRadius="3.0"
+                    android:shadowDy="2.0"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/white"
+                    android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="center_vertical"
+                    android:textAlignment="textEnd" />"
+            </LinearLayout>
+        </LinearLayout>"
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/widget_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="太康"
+            android:textColor="@color/snow"
+            android:textSize="20dip"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:text="晴"
+            android:id="@+id/widget_weather"
+		    android:textColor="@color/snow"
+		    android:textSize="20dip"
+		    android:layout_weight="1"
+		    android:gravity="center_horizontal"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+            android:textAlignment="center" />
+        <TextView
+            android:text="13℃~10℃"
+            android:id="@+id/widget_temp"
+		    android:textColor="@color/snow"
+		    android:textSize="20dip"
+		    android:layout_weight="1"
+		    android:gravity="center_horizontal"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+</LinearLayout>
