@@ -127,21 +127,19 @@ dependencies {
     /**
      * `fileTree` 导入 libs 目录下的所有 jar 文件
      */
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.squareup.okhttp:okhttp:2.1.0'
     compile 'com.alibaba:fastjson:1.2.18'
-
     // flyme 推送
-    compile(name:'common-1.0.10', ext:'aar')
-    compile(name:'gslb-3.0.9', ext:'aar')
-    compile(name:'push-internal-3.1.160901', ext:'aar')
-    compile(name:'usage-stats-2.5.1', ext:'aar')
-
+    compile(name: 'common-1.0.10', ext: 'aar')
+    compile(name: 'gslb-3.0.9', ext: 'aar')
+    compile(name: 'push-internal-3.1.160901', ext: 'aar')
+    compile(name: 'usage-stats-2.5.1', ext: 'aar')
     //testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile files('libs/Baidu_Mtj_3.7.4.9.jar')
 }

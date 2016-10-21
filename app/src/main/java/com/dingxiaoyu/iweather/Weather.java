@@ -44,6 +44,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.dingxiaoyu.iweather.util.Utils;
 
 import org.weixvn.wae.manager.EngineManager;
@@ -56,7 +57,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 @SuppressLint("SimpleDateFormat")
-public class CaiyunWeather extends Activity {
+public class Weather extends Activity {
 
 	final private String DATE_KEY[] = {"date_0", "date_1", "date_2", "date_3"};
 	final private String WEATHER_KEY[] = {"weather_0", "weather_1",
@@ -65,7 +66,7 @@ public class CaiyunWeather extends Activity {
 	final private String TEMPERATURE_KEY[] = {"temperature_0",
 			"temperature_1", "temperature_2", "temperature_3"};
 	public static Handler handler;
-	public static CaiyunWeather context;
+	public static Weather context;
 	private String[] dateArray, weatherArray, windArray, temperatureArray;
 	private SharedPreferences sp;
 	private LinearLayout weatherBg;
@@ -98,7 +99,7 @@ public class CaiyunWeather extends Activity {
 	private int index = 0;
 	private long currentTime = System.currentTimeMillis() + (1000 * 60 * 10);
 
-	private String TAG = "CaiyunWeather";
+	private String TAG = "Weather";
 
 	// 记步
 	private SensorManager mSensorManager;
@@ -149,16 +150,16 @@ public class CaiyunWeather extends Activity {
 			@Override
 			public void run() {
 				refreshing(false);
-				Toast.makeText(CaiyunWeather.this, "网络超时,请稍候再试", Toast.LENGTH_SHORT)
+				Toast.makeText(Weather.this, "网络超时,请稍候再试", Toast.LENGTH_SHORT)
 						.show();
 			}
 		};
 		sp = getSharedPreferences("weather", Context.MODE_PRIVATE);
 		if ("".equals(sp.getString("city", ""))) {
 			intent = new Intent();
-			intent.setClass(CaiyunWeather.this, SelectCity.class);
+			intent.setClass(Weather.this, SelectCity.class);
 			intent.putExtra("city", "");
-			CaiyunWeather.this.startActivityForResult(intent, 100);
+			Weather.this.startActivityForResult(intent, 100);
 			updateTimeText.setText("— — 更新");
 			weatherBg.setBackgroundResource(R.drawable.bg_na);
 			scrollView.setVisibility(View.GONE);
@@ -186,6 +187,7 @@ public class CaiyunWeather extends Activity {
 	protected void onResume() {
 		super.onResume();
 		Log.i(TAG, "onResume");
+		StatService.onResume(this);
 		mSensorManager.registerListener(mSensorEventListener, mStepSensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
 	}
@@ -193,6 +195,7 @@ public class CaiyunWeather extends Activity {
 	protected void onPause() {
 		super.onPause();
 		Log.i(TAG, "onPause");
+		StatService.onPause(this);
 		mSensorManager.unregisterListener(mSensorEventListener);
 	}
 
@@ -271,8 +274,8 @@ public class CaiyunWeather extends Activity {
 			updateTimeText.setText("— — 更新");
 			weatherBg.setBackgroundResource(R.drawable.bg_na);
 			scrollView.setVisibility(View.GONE);
-			if (Utils.checkNetwork(CaiyunWeather.this) == false) {
-				Toast.makeText(CaiyunWeather.this, "网络异常,请检查网络设置", Toast.LENGTH_SHORT)
+			if (Utils.checkNetwork(Weather.this) == false) {
+				Toast.makeText(Weather.this, "网络异常,请检查网络设置", Toast.LENGTH_SHORT)
 						.show();
 				return;
 			}
@@ -317,7 +320,7 @@ public class CaiyunWeather extends Activity {
 					updateWeatherInfo();
 					break;
 				case 2:
-					builder = new Builder(CaiyunWeather.this);
+					builder = new Builder(Weather.this);
 					builder.setTitle("提示");
 					builder.setMessage("没有查询到[" + city + "]的天气信息。");
 					builder.setPositiveButton("重试",
@@ -327,8 +330,8 @@ public class CaiyunWeather extends Activity {
 								public void onClick(DialogInterface dialog,
 													int which) {
 									intent = new Intent();
-									intent.setClass(CaiyunWeather.this, SelectCity.class);
-									CaiyunWeather.this
+									intent.setClass(Weather.this, SelectCity.class);
+									Weather.this
 											.startActivityForResult(intent, 100);
 								}
 							});
@@ -345,7 +348,7 @@ public class CaiyunWeather extends Activity {
 					builder.show();
 					break;
 				case 0:
-					Toast.makeText(CaiyunWeather.this, "更新失败,请稍候再试", Toast.LENGTH_SHORT)
+					Toast.makeText(Weather.this, "更新失败,请稍候再试", Toast.LENGTH_SHORT)
 							.show();
 					break;
 				default:
@@ -523,18 +526,18 @@ public class CaiyunWeather extends Activity {
 					.replace(" ", "日 ");
 			updateTimeText.setTextColor(getResources().getColor(R.color.red));
 			// 超过一天没有更新天气，自动帮用户更新
-			if (Utils.checkNetwork(CaiyunWeather.this) == true) {
+			if (Utils.checkNetwork(this) == true) {
 				updateWeather();
 			}
 		}
 		updateTimeText.setText(updateTime + " 更新");
-		weatherForecastList.setAdapter(new MyAdapter(CaiyunWeather.this));
+		weatherForecastList.setAdapter(new MyAdapter(this));
 		Utils.setListViewHeightBasedOnChildren(weatherForecastList);
 	}
 
 	private void initNotificat()
 	{
-		Intent notificationIntent = new Intent(this, CaiyunWeather.class);
+		Intent notificationIntent = new Intent(this, Weather.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				notificationIntent, 0);
 
@@ -562,7 +565,7 @@ public class CaiyunWeather extends Activity {
 
 	private void updateNotificat(String str)
 	{
-		Intent notificationIntent = new Intent(this, CaiyunWeather.class);
+		Intent notificationIntent = new Intent(this, Weather.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				notificationIntent, 0);
 
@@ -844,8 +847,8 @@ public class CaiyunWeather extends Activity {
 			switch (v.getId()) {
 				case R.id.change_city_layout:
 					intent = new Intent();
-					intent.setClass(CaiyunWeather.this, SelectCity.class);
-					CaiyunWeather.this.startActivityForResult(intent, 100);
+					intent.setClass(Weather.this, SelectCity.class);
+					startActivityForResult(intent, 100);
 					break;
 				case R.id.share:
 
@@ -858,16 +861,15 @@ public class CaiyunWeather extends Activity {
 					intent.putExtra(Intent.EXTRA_SUBJECT, "好友分享");
 					intent.putExtra(Intent.EXTRA_TEXT, shareStr);
 					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					CaiyunWeather.this
-							.startActivity(Intent.createChooser(intent, "好友分享"));
+					startActivity(Intent.createChooser(intent, "好友分享"));
 					break;
 				case R.id.about:
 					LayoutInflater inflater = getLayoutInflater();
 					View dialogLayout = inflater.inflate(R.layout.weather_dialog, null);
 					TextView version = (TextView) dialogLayout
 							.findViewById(R.id.version);
-					version.setText("V " + Utils.getVersion(CaiyunWeather.this));
-					builder = new Builder(CaiyunWeather.this);
+					version.setText("V " + Utils.getVersion(Weather.this));
+					builder = new Builder(Weather.this);
 					builder.setTitle("关于");
 					builder.setView(dialogLayout);
 					builder.setPositiveButton("确定", null);
@@ -875,8 +877,8 @@ public class CaiyunWeather extends Activity {
 					builder.show();
 					break;
 				case R.id.refresh:
-					if (Utils.checkNetwork(CaiyunWeather.this) == false) {
-						Toast.makeText(CaiyunWeather.this, "网络异常,请检查网络设置",
+					if (Utils.checkNetwork(Weather.this) == false) {
+						Toast.makeText(Weather.this, "网络异常,请检查网络设置",
 								Toast.LENGTH_SHORT).show();
 						return;
 					}

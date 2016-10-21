@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.baidu.mobstat.StatService;
 import com.meizu.cloud.pushsdk.PushManager;
 
 public class SplashActivity extends Activity {
@@ -28,6 +29,7 @@ public class SplashActivity extends Activity {
 
 
 
+        // 注册推送
         String id = "110036";
         String Key = "c3c85e639cf74cbc8fbd3b90e6802d46";
         String Secret = "12d430dc7a94469dac446aaf3ed25130";
@@ -36,8 +38,9 @@ public class SplashActivity extends Activity {
         Log.i(TAG, "PushManager：register");
         Log.i(TAG, "getPushId：" + pushid);
 
-        init(); 
-  
+        //StatService.setDebugOn(true);
+
+        init();
     }
     
     @SuppressLint("HandlerLeak")
@@ -90,6 +93,19 @@ public class SplashActivity extends Activity {
         Intent intent = new Intent(SplashActivity.this, Welcome.class);
         SplashActivity.this.startActivity(intent);
         SplashActivity.this.finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 页面埋点，需要使用Activity的引用，以便代码能够统计到具体页面名
+        StatService.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatService.onPause(this);
     }
 
 }

@@ -33,6 +33,7 @@ import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol;
 import com.amap.api.location.AMapLocationListener;
 
+import com.baidu.mobstat.StatService;
 import com.dingxiaoyu.iweather.util.Utils;
 import com.dingxiaoyu.iweather.web.CaiyunWeather;
 
@@ -396,10 +397,23 @@ public class SelectCity extends Activity {
 	private void back() {
 		intent = getIntent();
 		if ("".equals(intent.getStringExtra("city"))) {
-			com.dingxiaoyu.iweather.CaiyunWeather.context.finish();
+			Weather.context.finish();
 		}
 		SelectCity.this.finish();
 		//System.exit(0);
 	}
 
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// 页面埋点，需要使用Activity的引用，以便代码能够统计到具体页面名
+		StatService.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		StatService.onPause(this);
+	}
 }

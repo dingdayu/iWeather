@@ -14,7 +14,7 @@ public class Welcome extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.welcome);
 
-		Intent intent = new Intent(Welcome.this, CaiyunWeather.class);
+		Intent intent = new Intent(Welcome.this, Weather.class);
 		Welcome.this.startActivity(intent);
 		Welcome.this.finish();
 
