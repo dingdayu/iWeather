@@ -44,8 +44,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mobstat.StatService;
 import com.dingxiaoyu.iweather.util.Utils;
+import com.tencent.stat.StatService;
 
 import org.weixvn.wae.manager.EngineManager;
 

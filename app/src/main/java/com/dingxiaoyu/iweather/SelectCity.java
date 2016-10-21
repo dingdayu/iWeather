@@ -33,9 +33,9 @@ import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol;
 import com.amap.api.location.AMapLocationListener;
 
-import com.baidu.mobstat.StatService;
 import com.dingxiaoyu.iweather.util.Utils;
 import com.dingxiaoyu.iweather.web.CaiyunWeather;
+import com.tencent.stat.StatService;
 
 public class SelectCity extends Activity {
 

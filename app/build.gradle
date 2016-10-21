@@ -64,9 +64,13 @@ android {
             // 定制包名的
             //applicationId "com.dingxiaoyu.iweather"
             // manifests
-            //manifestPlaceholders = [ CHANNEL_NAME:"YINGYONGBAO"]
+            manifestPlaceholders = [CHANNEL: "main"]
         }
         flyme {
+            manifestPlaceholders = [CHANNEL: "flyme"]
+        }
+        tencent {
+            manifestPlaceholders = [CHANNEL: "tencent"]
         }
     }
 
@@ -138,8 +142,8 @@ dependencies {
     compile(name: 'push-internal-3.1.160901', ext: 'aar')
     compile(name: 'usage-stats-2.5.1', ext: 'aar')
     //testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile files('libs/Baidu_Mtj_3.7.4.9.jar')
+    //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    //        exclude group: 'com.android.support', module: 'support-annotations'
+    //    })
+    compile files('libs/mta-sdk-2.2.0.jar')
 }
