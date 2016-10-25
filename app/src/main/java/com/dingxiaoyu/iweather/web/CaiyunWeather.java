@@ -7,6 +7,8 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.dingxiaoyu.iweather.Weather;
+import com.dingxiaoyu.iweather.util.Utils;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -23,9 +25,9 @@ public class CaiyunWeather {
     private String uri;
     protected String TAG = "CaiyunWeather";
     // 请填写你的彩云挑起token
-    protected String CaiyunToken = "";
+    protected String CaiyunToken = "***********";
     // 请填写你的高德WEB KEY
-    protected String GaodeKEY = "";
+    protected String GaodeKEY = "*************************";
 
     protected OkHttpClient mOkHttpClient = new OkHttpClient();
 
@@ -152,9 +154,9 @@ public class CaiyunWeather {
 
     private void returnsError()
     {
-        Message msg = com.dingxiaoyu.iweather.CaiyunWeather.handler.obtainMessage();
+        Message msg = Weather.handler.obtainMessage();
         msg.what = 0;
-        com.dingxiaoyu.iweather.CaiyunWeather.handler.sendMessage(msg);
+        Weather.handler.sendMessage(msg);
     }
 
     private void returns(JSONObject jsonObject)
@@ -232,7 +234,7 @@ public class CaiyunWeather {
             // 其他错误
             msg.what = 0;
         }
-        com.dingxiaoyu.iweather.CaiyunWeather.handler.sendMessage(msg);
+        Weather.handler.sendMessage(msg);
     }
 
 

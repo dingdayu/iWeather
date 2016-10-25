@@ -8,9 +8,12 @@
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
     <!-- 高德定位需要的权限 -->
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -29,13 +32,7 @@
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <meta-data
-        android:name="com.amap.api.v2.apikey"
-        android:value="c4543016b5b84f8f46c4da42a1ac1cd7" />
-
     <!-- 推送权限 -->
-
-
     <!-- 兼容flyme5.0以下版本，魅族内部集成pushSDK必填，不然无法收到消息 -->
     <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.dingxiaoyu.iweather.permission.C2D_MESSAGE"/>
@@ -63,6 +60,20 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <!--移动统计-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="${UMENG_APPKEY_VALUE}" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${CHANNEL}" />
+
+        <!--高德地图-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="${AMAP_LIB_V2_APPKEY_VALUE}" />
+
         <service android:name=".WidgetProviderServer">
             <intent-filter>
                 <action android:name="Widget.Button.Click" />
@@ -129,9 +140,6 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity
             android:name=".Weather"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".CaiyunWeather"
             android:label="@string/app_name"></activity>
         <activity
             android:name=".SelectCity"

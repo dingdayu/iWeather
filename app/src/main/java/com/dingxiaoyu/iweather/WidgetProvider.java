@@ -68,7 +68,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		//比较天气缓存文件中的有效期，如果超时了，则访问网络更新天气
 		
 		if(vaildTime <= currentTime)
-			CaiyunWeather.updateWeather();
+			Weather.updateWeather();
 		else
 			updateWeather(views, context);
 		

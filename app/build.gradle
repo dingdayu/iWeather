@@ -16,7 +16,13 @@ android {
         targetSdkVersion 19
         versionCode 13
         versionName "1.1.1"
-        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // dex突破65535的限制
+        multiDexEnabled true
+        manifestPlaceholders = [ CHANNEL:"Unspecified",
+                                 AMAP_LIB_V2_APPKEY_VALUE: AMAP_LIB_V2_APPKEY_VALUE_DEBUG,
+                                 UMENG_APPKEY_VALUE: UMENG_APPKEY_VALUE_DEBUG,
+        ]
     }
 
     /**
@@ -64,9 +70,10 @@ android {
             // 定制包名的
             //applicationId "com.dingxiaoyu.iweather"
             // manifests
-            //manifestPlaceholders = [ CHANNEL_NAME:"YINGYONGBAO"]
+            manifestPlaceholders = [CHANNEL: "main"]
         }
         flyme {
+            manifestPlaceholders = [CHANNEL: "flyme"]
         }
     }
 
@@ -127,21 +134,31 @@ dependencies {
     /**
      * `fileTree` 导入 libs 目录下的所有 jar 文件
      */
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:support-v4:24.2.1'
+
+
+    // 友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    // flyme 推送
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.squareup.okhttp:okhttp:2.1.0'
     compile 'com.alibaba:fastjson:1.2.18'
-
-    // flyme 推送
-    compile(name:'common-1.0.10', ext:'aar')
-    compile(name:'gslb-3.0.9', ext:'aar')
-    compile(name:'push-internal-3.1.160901', ext:'aar')
-    compile(name:'usage-stats-2.5.1', ext:'aar')
-
+    compile(name: 'common-1.0.10', ext: 'aar')
+    compile(name: 'gslb-3.0.9', ext: 'aar')
+    compile(name: 'push-internal-3.1.160901', ext: 'aar')
+    compile(name: 'usage-stats-2.5.1', ext: 'aar')
     //testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    //        exclude group: 'com.android.support', module: 'support-annotations'
+    //    })
+}
+
+// 重命名APK文件名
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        output.outputFile = new File(
+                output.outputFile.parent + "/${variant.buildType.name}",
+                "iWeather-${variant.versionName}-${variant.productFlavors[0].name}-${variant.buildType.name}.apk".toLowerCase())
+    }
 }

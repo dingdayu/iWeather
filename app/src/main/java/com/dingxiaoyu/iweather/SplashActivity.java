@@ -10,6 +10,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.meizu.cloud.pushsdk.PushManager;
+import com.umeng.analytics.MobclickAgent;
 
 public class SplashActivity extends Activity {
 	
@@ -28,6 +29,7 @@ public class SplashActivity extends Activity {
 
 
 
+        // 注册推送
         String id = "110036";
         String Key = "c3c85e639cf74cbc8fbd3b90e6802d46";
         String Secret = "12d430dc7a94469dac446aaf3ed25130";
@@ -36,8 +38,10 @@ public class SplashActivity extends Activity {
         Log.i(TAG, "PushManager：register");
         Log.i(TAG, "getPushId：" + pushid);
 
-        init(); 
-  
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        MobclickAgent.setDebugMode( true );
+
+        init();
     }
     
     @SuppressLint("HandlerLeak")
@@ -92,4 +96,15 @@ public class SplashActivity extends Activity {
         SplashActivity.this.finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }
