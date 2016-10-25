@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
+import com.umeng.analytics.MobclickAgent;
+
 public class Welcome extends Activity {
 
 	@Override
@@ -30,6 +32,18 @@ public class Welcome extends Activity {
 //		};
 //		Handler handler = new Handler();
 //		handler.postDelayed(run, 1 * 1000);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 
 }

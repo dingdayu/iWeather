@@ -45,7 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dingxiaoyu.iweather.util.Utils;
-import com.tencent.stat.StatService;
+import com.umeng.analytics.MobclickAgent;
 
 import org.weixvn.wae.manager.EngineManager;
 
@@ -187,7 +187,7 @@ public class Weather extends Activity {
 	protected void onResume() {
 		super.onResume();
 		Log.i(TAG, "onResume");
-		StatService.onResume(this);
+		MobclickAgent.onResume(this);
 		mSensorManager.registerListener(mSensorEventListener, mStepSensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
 	}
@@ -195,7 +195,7 @@ public class Weather extends Activity {
 	protected void onPause() {
 		super.onPause();
 		Log.i(TAG, "onPause");
-		StatService.onPause(this);
+		MobclickAgent.onPause(this);
 		mSensorManager.unregisterListener(mSensorEventListener);
 	}
 

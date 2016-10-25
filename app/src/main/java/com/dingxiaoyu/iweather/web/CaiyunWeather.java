@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dingxiaoyu.iweather.Weather;
+import com.dingxiaoyu.iweather.util.Utils;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -24,9 +25,9 @@ public class CaiyunWeather {
     private String uri;
     protected String TAG = "CaiyunWeather";
     // 请填写你的彩云挑起token
-    protected String CaiyunToken = "nGdiAEmrjzF7yJu6";
+    protected String CaiyunToken = "***********";
     // 请填写你的高德WEB KEY
-    protected String GaodeKEY = "71e31da1d901eede04a8f2d09a0c6ea0";
+    protected String GaodeKEY = "*************************";
 
     protected OkHttpClient mOkHttpClient = new OkHttpClient();
 

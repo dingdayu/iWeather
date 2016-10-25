@@ -145,6 +145,18 @@ public class Utils {
         return null;
     }
 
+	/**
+	 * 获取Manifest里面配置的渠道版本
+	 */
+	public String getManifestValue(Context context,String key) {
+		String channel = "";
+		try {
+			channel = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA).metaData.getString(key);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return channel;
+	}
 
 	// 获取传感器列表
 	private void getSensorList(Context context) {

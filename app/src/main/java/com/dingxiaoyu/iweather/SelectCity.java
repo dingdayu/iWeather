@@ -35,7 +35,7 @@ import com.amap.api.location.AMapLocationListener;
 
 import com.dingxiaoyu.iweather.util.Utils;
 import com.dingxiaoyu.iweather.web.CaiyunWeather;
-import com.tencent.stat.StatService;
+import com.umeng.analytics.MobclickAgent;
 
 public class SelectCity extends Activity {
 
@@ -408,12 +408,12 @@ public class SelectCity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		// 页面埋点，需要使用Activity的引用，以便代码能够统计到具体页面名
-		StatService.onResume(this);
+		MobclickAgent.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		StatService.onPause(this);
+		MobclickAgent.onPause(this);
 	}
 }
